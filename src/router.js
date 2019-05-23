@@ -6,49 +6,71 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/course',
-      name: 'course',
-      component: () => import('./views/Course.vue')
+      path: '/',
+      name: 'login',
+      component: () => import('./views/Login.vue')
     },
     {
-      path: '/transcript',
-      name: 'transcript',
-      component: () => import('./views/Transcript.vue')
-    },
-    {
-      path: '/tcourse',
-      name: 'tcourse',
-      component: () => import('./views/TCourse.vue')
-    },
-    {
-      path: '/grade',
-      name: 'grade',
-      component: () => import('./views/Grade.vue')
-    },
-    {
-      path: '/fastinput',
-      name: 'fastinput',
-      component: () => import('./views/FastInput.vue')
-    },
-    {
-      path: '/fastdelete',
-      name: 'fastdelete',
-      component: () => import('./views/FastDelete.vue')
-    },
-    {
-      path: '/cmanage',
-      name: 'cmanage',
-      component: () => import('./views/Cmanage.vue')
-    },
-    {
-      path: '/tmanage',
-      name: 'tmanage',
-      component: () => import('./views/Tmanage.vue')
-    },
-    {
-      path: '/smanage',
-      name: 'smanage',
-      component: () => import('./views/Smanage.vue')
+      path: '/home',
+      name: 'home',
+      component: () => import('./views/Home.vue'),
+      children: [
+        {
+          path: '/course',
+          name: 'course',
+          component: () => import('./views/Course.vue')
+        },
+        {
+          path: '/transcript',
+          name: 'transcript',
+          component: () => import('./views/Transcript.vue')
+        },
+        {
+          path: '/tcourse',
+          name: 'tcourse',
+          component: () => import('./views/TCourse.vue')
+        },
+        {
+          path: '/grade',
+          name: 'grade',
+          component: () => import('./views/Grade.vue')
+        },
+        {
+          path: '/fastinput',
+          name: 'fastinput',
+          component: () => import('./views/FastInput.vue')
+        },
+        {
+          path: '/fastdelete',
+          name: 'fastdelete',
+          component: () => import('./views/FastDelete.vue')
+        },
+        {
+          path: '/cmanage',
+          name: 'cmanage',
+          component: () => import('./views/Cmanage.vue')
+        },
+        {
+          path: '/tmanage',
+          name: 'tmanage',
+          component: () => import('./views/Tmanage.vue')
+        },
+        {
+          path: '/smanage',
+          name: 'smanage',
+          component: () => import('./views/Smanage.vue')
+        },
+        {
+          path: '/acourse',
+          name: 'acourse',
+          component: () => import('./views/ACourse.vue')
+        },
+        {
+          path: '/aopen',
+          name: 'aopen',
+          component: () => import('./views/AOpen.vue')
+        }
+      ]
     },
     {
       path: '/login',

@@ -20,5 +20,5 @@ yarn-error.log*
 *.sln
 *.sw*
 
-package-loct.json
+package-lock.json
 package.json
