@@ -22,7 +22,8 @@
                         <el-menu-item index="4" route="/acourse">管理课程</el-menu-item>
                     </el-menu>
                 </el-col>
-                <el-col :span="4" style="height:60px" justify="end">
+                <el-col :span="4" style="height:60px" justify="end"> 
+                    <el-button type="text" style="height:60px">Welcome,{{ this.name}}!</el-button>
                 </el-col>
                 <el-col :span="2" style="height:60px" justify="end">
                     <el-button type="text" style="height:60px" @click="goBack()">安全退出</el-button>
@@ -48,17 +49,17 @@ export default {
   },
   created: function() {
     // console.log("123456", this.$store.state.isLogin);
-    this.user_id=JSON.parse(localStorage.getItem("user_id"))
+    this.name = localStorage.getItem("name");
     this.isLogin = JSON.parse(localStorage.getItem("isLogin"));
     this.isStudent = JSON.parse(localStorage.getItem("isStudent"));
     this.isTeacher = JSON.parse(localStorage.getItem("isTeacher"));
     this.isAdmin = JSON.parse(localStorage.getItem("isAdmin"));
   },
   methods: {
-      goBack(){
-          localStorage.setItem("token",'');
-          this.$router.push("/login");
-      }
+    goBack() {
+      localStorage.setItem("token", "");
+      this.$router.push("/login");
+    }
   }
 };
 </script>
