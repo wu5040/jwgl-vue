@@ -13,9 +13,9 @@
       </el-table>
     </div>
     <br/>
-    <el-button @click="drawBar()">展示</el-button>
+    <!-- <el-button @click="drawBar()">展示</el-button>
     <br/>
-    <div v-show="isShow" id="scoreBar" :style="{width: '630px', height: '300px'}"></div>
+    <div v-show="isShow" id="scoreBar" :style="{width: '630px', height: '300px'}"></div> -->
   </div>
 </template>
 

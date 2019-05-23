@@ -147,7 +147,7 @@ export default {
           Ylabel[1] = Ylabel[1] + 1;
         } else if (zpcj >= 60 && zpcj < 70) {
           Ylabel[2] = Ylabel[2] + 1;
-        } else {
+        } else if(zpcj>=0 && zpcj<60){
           Ylabel[3] = Ylabel[3] + 1;
         }
         console.log("Y", Ylabel);

@@ -3,7 +3,7 @@
 
         <el-header v-show="isLogin" class="header">
             <el-row>
-                <el-col :span="20">
+                <el-col :span="18">
                     <el-menu :default-active="$route.path" class="el-menu-demo" mode="horizontal" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b" router v-show="isStudent">
                         <el-menu-item index="1" route="/course">我的课表</el-menu-item>
                         <el-menu-item index="2" route="/transcript">我的成绩</el-menu-item>
@@ -23,6 +23,8 @@
                     </el-menu>
                 </el-col>
                 <el-col :span="4" style="height:60px" justify="end">
+                </el-col>
+                <el-col :span="2" style="height:60px" justify="end">
                     <el-button type="text" style="height:60px" @click="goBack()">安全退出</el-button>
                 </el-col>
             </el-row>
@@ -45,7 +47,8 @@ export default {
     };
   },
   created: function() {
-    console.log("123456", this.$store.state.isLogin);
+    // console.log("123456", this.$store.state.isLogin);
+    this.user_id=JSON.parse(localStorage.getItem("user_id"))
     this.isLogin = JSON.parse(localStorage.getItem("isLogin"));
     this.isStudent = JSON.parse(localStorage.getItem("isStudent"));
     this.isTeacher = JSON.parse(localStorage.getItem("isTeacher"));

@@ -61,6 +61,7 @@ export default {
           let resCode = res.data.code;
           if (resCode === 200) {
             console.log(res.data.jsonObject);
+            localStorage.setItem("user_id", res.data.jsonObject.user_id);
             localStorage.setItem("token", res.data.jsonObject.token);
             if (res.data.jsonObject.role === "student") {
               console.log("student登录");

@@ -209,6 +209,7 @@ export default {
           message: "该时间段已选择课程",
           type: "error"
         });
+        this.isConflict=false
       } else {
         this.loading = true;
         this.axios
