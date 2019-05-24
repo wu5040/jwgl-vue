@@ -11,35 +11,19 @@
       </el-row>
     </div>
     </br>
-    <el-table v-show="isSearch" :data="tableAllCourseData" v-loading="loading" stripe fit style="margin: 0 auto; width: 95%; text-align:center;">
-      <el-table-column prop="kh" label="课程号" width="150">
+    <el-table v-show="isSearch" :data="tableAllCourseData" v-loading="loading" stripe fit=true style="margin: 0 auto; width: 80%; text-align:center;">
+      <el-table-column prop="kh" label="课程号">
       </el-table-column>
-      <el-table-column prop="km" label="课程名" width="150">
+      <el-table-column prop="km" label="课程名">
       </el-table-column>
-      <el-table-column prop="xf" label="学分" width="150">
+      <el-table-column prop="xf" label="学分" >
       </el-table-column>
-      <el-table-column prop="xs" label="学时" width="150">
+      <el-table-column prop="xs" label="学时">
       </el-table-column>
-      <el-table-column prop="cjRatio" label="成绩比例" width="150">
+      <el-table-column prop="cjRatio" label="成绩比例">
       </el-table-column>
-      <el-table-column prop="mc" label="院系" width="200">
+      <el-table-column prop="mc" label="院系">
       </el-table-column>
-      <!-- <el-table-column prop="credit" label="学分" width="150">
-      </el-table-column> -->
-      <!-- <el-table-column prop="sksj" label="上课时间" width="180">
-      </el-table-column> -->
-      <!-- <el-table-column prop="gh" label="教师号" width="150">
-      </el-table-column>
-      <el-table-column prop="tname" label="教师名" width="150">
-      </el-table-column> -->
-      <!-- <el-table-column prop="place" label="上课教室" width="150">
-      </el-table-column> -->
-      <!-- <el-table-column prop="faculty" label="开课学院院系号" width="150">
-      </el-table-column> -->
-      <!-- <el-table-column prop="Cur" label="当前选课人数" width="150">
-      </el-table-column>
-      <el-table-column prop="max" label="额定人数" width="150">
-      </el-table-column> -->
       <el-table-column label="操作">
         <template slot-scope="scope">
           <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">开课</el-button>
@@ -54,18 +38,6 @@
       <el-form-item label="课程名">
         <el-input v-model="form.km"></el-input>
       </el-form-item>
-      <!-- <el-form-item label="教师号">
-        <el-input v-model="form.gh"></el-input>
-      </el-form-item>
-      <el-form-item label="教师姓名">
-        <el-input v-model="form.tname"></el-input> -->
-      </el-form-item>
-      <!-- <el-form-item label="上课教室">
-        <el-input v-model="form.place"></el-input>
-      </el-form-item> -->
-      <!-- <el-form-item label="额定人数">
-        <el-input v-model="form.max"></el-input>
-      </el-form-item> -->
       <el-form-item label="学分">
         <el-input v-model="form.xf"></el-input>
       </el-form-item>
@@ -76,53 +48,31 @@
         <el-input v-model="form.cjRatio"></el-input>
       </el-form-item>
       <el-form-item label="院系号">
-        <el-input v-model="form.yxh"></el-input>
+        <el-select style="width:100%" v-model="form.yxh" placeholder="请选择">
+          <el-option v-for="item in yxhForm" :key="item.value" :label="item.label" :value="item.value">
+          </el-option>
+        </el-select>
       </el-form-item>
-      <!-- <el-form-item label="上课时间">
-        <el-input v-model="dynamicValidateForm.sksj"></el-input>
-      </el-form-item>
-      <el-form-item v-for="(domain, index) in dynamicValidateForm.domains" :label="'上课时间' + (index+1)" :key="domain.key" :prop="'domains.' + index + '.value'">
-        <el-input v-model="domain.value"></el-input>
-        <el-button @click.prevent="removeDomain(domain)">删除</el-button>
-      </el-form-item> -->
-      <!-- <el-form-item> -->
-      <!-- <el-button @click="addDomain">新增上课时间</el-button> -->
-      <!-- <el-button @click="resetForm('dynamicValidateForm')">重置</el-button> -->
-      <!-- </el-form-item> -->
-      <el-button type="primary" @click="submitForm('dynamicValidateForm')">确认提交</el-button>
+      <el-button type="primary" @click="submitForm()">确认提交</el-button>
     </el-form>
     <el-dialog title="开课" :visible.sync="dialogTableVisible">
       <el-form :model="dialogueform">
-        <el-form-item label="课程号" :label-width="formLabelWidth">
+        <el-form-item label="课程号">
           <el-input :disabled=true v-model="dialogueform.kh" autocomplete="off"></el-input>
         </el-form-item>
-        <!-- <el-form-item label="课程名" :label-width="formLabelWidth">
-          <el-input :disabled="true" v-model="dialogueform.km" autocomplete="off"></el-input>
-        </el-form-item> -->
-        <!-- <el-form-item label="学分" :label-width="formLabelWidth">
-          <el-input :disabled="true" v-model="dialogueform.credit" autocomplete="off"></el-input>
-        </el-form-item> -->
-        <el-form-item label="教师号" :label-width="formLabelWidth">
+        <el-form-item label="教师号">
           <el-input v-model="dialogueform.gh" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="学期" :label-width="formLabelWidth">
-          <div>
-            <el-select v-model="dialogueform.xq" placeholder="请选择">
-              <el-option v-for="item in chooseForm" :key="item.value" :label="item.label" :value="item.value" :disabled="item.disabled">
-              </el-option>
-            </el-select>
-          </div>
+        <el-form-item label="学期">
+          <el-select style="width:100%" v-model="dialogueform.xq" placeholder="请选择">
+            <el-option v-for="item in chooseForm" :key="item.value" :label="item.label" :value="item.value" :disabled="item.disabled">
+            </el-option>
+          </el-select>
         </el-form-item>
-        <!-- <el-form-item label="教师姓名" :label-width="formLabelWidth">
-          <el-input :disabled="true" v-model="dialogueform.tname" autocomplete="off"></el-input>
-        </el-form-item> -->
-        <el-form-item label="上课时间" :label-width="formLabelWidth">
+        <el-form-item label="上课时间">
           <el-input v-model="dialogueform.sksj" autocomplete="off"></el-input>
         </el-form-item>
-        <!-- <el-form-item label="上课地点" :label-width="formLabelWidth">
-          <el-input v-model="dialogueform.class_location" autocomplete="off"></el-input>
-        </el-form-item> -->
-        <el-form-item label="最大选课人数" :label-width="formLabelWidth">
+        <el-form-item label="最大选课人数">
           <el-input v-model="dialogueform.max" autocomplete="off"></el-input>
         </el-form-item>
       </el-form>
@@ -140,6 +90,20 @@ export default {
   inject: ["reload"],
   data() {
     return {
+      yxhForm: [
+        {
+          value: "001",
+          label: "计算机工程与科学学院"
+        },
+        {
+          value: "002",
+          label: "音乐学院"
+        },
+        {
+          value: "003",
+          label: "理学院"
+        }
+      ],
       loading: false,
       isSearch: false,
       isAdd: false,
@@ -281,27 +245,28 @@ export default {
       //     return false
       //   }
       // })
-      console.log(this.dynamicValidateForm.sksj);
-      var classtime = this.dynamicValidateForm.sksj;
-      for (var index in this.dynamicValidateForm.domains) {
-        classtime =
-          classtime + " " + this.dynamicValidateForm.domains[index].value;
-      }
-      console.log(classtime);
-      console.log("submit");
+      // console.log(this.dynamicValidateForm.sksj);
+      // var classtime = this.dynamicValidateForm.sksj;
+      // for (var index in this.dynamicValidateForm.domains) {
+      //   classtime =
+      //     classtime + " " + this.dynamicValidateForm.domains[index].value;
+      // }
+      // console.log(classtime);
+      // console.log("submit");
 
       let formData = new FormData();
       formData.append("kh", this.form.kh);
       formData.append("km", this.form.km);
-      formData.append("gh", this.form.gh);
-      formData.append("tname", this.form.tname);
-      // formData.append("class_location", this.form.place);
-      formData.append("max", this.form.max);
+      formData.append("cjRatio", this.form.cjRatio);
+      formData.append("xf", this.form.xf);
+      formData.append("xs", this.form.xs);
+      formData.append("yxh", this.form.yxh);
       // formData.append("credit", this.form.credit);
-      formData.append("sksj", classtime);
 
       this.axios
-        .post("http://localhost:8099/admin/open", formData)
+        .post("http://localhost:8099/admin/course", formData,{
+            headers: { token: localStorage.getItem("token") }}
+        )
         .then(resp => {
           console.log(resp);
           if (resp.data.error === 1) {

@@ -13,40 +13,44 @@
           <el-button @click="test()">查询</el-button>
         </el-form>
       </div> -->
-            <el-table @row-click="handleEdit" :data="CourseData" v-loading="loading" style="margin: 0 auto; width: 100%; text-align:center;" fit :stripe="true" :border="false">
+            <el-table @row-click="handleEdit" :data="CourseData" v-loading="loading" style="margin: 0 auto; width: 100%; text-align:center;" fit=ture :stripe="true" :border="false">
                 <el-table-column prop="kh" label="课程号"></el-table-column>
                 <el-table-column prop="km" label="课程名"></el-table-column>
                 <el-table-column prop="xf" label="学分"></el-table-column>
                 <el-table-column prop="gh" label="教师号"></el-table-column>
-                <el-table-column prop="name" label="教师名"></el-table-column>
+                <el-table-column prop="tname" label="教师名"></el-table-column>
+                <el-table-column prop="Cur" label="已选课人数"></el-table-column>
                 <el-table-column prop="max" label="额定人数"></el-table-column>
                 <el-table-column prop="sksj" label="上课时间"></el-table-column>
                 <el-table-column prop="xq" label="学期"></el-table-column>
             </el-table>
             <el-dialog title="修改开课信息" :visible.sync="dialogTableVisible">
                 <el-form :model="dialogueform">
-                    <el-form-item label="课程号" :label-width="formLabelWidth">
+                    <el-form-item label="课程号" >
                         <el-input :disabled=true v-model="dialogueform.kh" autocomplete="off"></el-input>
                     </el-form-item>
-                    <el-form-item label="课程名" :label-width="formLabelWidth">
+                    <el-form-item label="课程名" >
                         <el-input :disabled=true v-model="dialogueform.km" autocomplete="off"></el-input>
                     </el-form-item>
-                    <el-form-item label="学分" :label-width="formLabelWidth">
+                    <el-form-item label="学分" >
                         <el-input :disabled=true v-model="dialogueform.xf" autocomplete="off"></el-input>
                     </el-form-item>
-                    <el-form-item label="教师号" :label-width="formLabelWidth">
+                    <el-form-item label="教师号">
                         <el-input :disabled=true v-model="dialogueform.gh" autocomplete="off"></el-input>
                     </el-form-item>
-                    <el-form-item label="教师名" :label-width="formLabelWidth">
+                    <el-form-item label="教师名" >
                         <el-input :disabled=true v-model="dialogueform.name" autocomplete="off"></el-input>
                     </el-form-item>
-                    <el-form-item label="学期" :label-width="formLabelWidth">
+                    <el-form-item label="学期" >
                         <el-input :disabled=true v-model="dialogueform.xq" autocomplete="off"></el-input>
                     </el-form-item>
                     <el-form-item label="上课时间">
                         <el-input v-model="dialogueform.sksj" autocomplete="off"></el-input>
                     </el-form-item>
-                    <el-form-item label="额定人数" :label-width="formLabelWidth">
+                    <el-form-item label="已选课人数" >
+                        <el-input v-model="dialogueform.Cur" autocomplete="off"></el-input>
+                    </el-form-item>
+                    <el-form-item label="额定人数">
                         <el-input v-model="dialogueform.max" autocomplete="off"></el-input>
                     </el-form-item>
                 </el-form>

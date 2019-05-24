@@ -65,15 +65,27 @@ export default {
       .catch(error => {
         console.log(error.response);
         this.loading = false;
-        this.$notify({
-          title: "查询失败",
-          message: "登陆失效，请重新登陆",
-          type: "error"
-        });
-        if (error.response.data.code === 40401) {
-          console.log("用户名不存在");
+       if (error.response.data) {
+          if (error.response.data.status == 500) {
+            this.$notify({
+              title: "查询失败",
+              message: "暂无课程，请先选课",
+              type: "error"
+            });
+            this.loading=false
+          } else {
+            this.$notify({
+              title: "查询失败",
+              message: error.response.data.message,
+              type: "error"
+            });
+          }
         } else {
-          console.log("密码错误");
+          this.$notify({
+            title: "查询失败",
+            message: "登陆失效，请重新登陆",
+            type: "error"
+          });
         }
       });
   },

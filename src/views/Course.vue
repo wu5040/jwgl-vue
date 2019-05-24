@@ -24,7 +24,7 @@
       </el-table>
       <br>
       <div>
-      我的课程表
+        我的课程表
       </div>
       <br>
       <el-table :data="tableForm" style="margin: 0 auto; width: 100%; text-align:center;" fit :stripe="true" :border="false">
@@ -237,40 +237,52 @@ export default {
       })
       .catch(error => {
         console.log(error.response);
-        this.$notify({
-          title: "查询失败",
-          message: "登陆失效，请重新登陆",
-          type: "error"
-        });
-        if (error.response.data.code === 40401) {
-          console.log("用户名不存在");
+        this.loading=false
+        if (error.response.data) {
+          if (error.response.data.status == 500) {
+            this.$notify({
+              title: "查询失败",
+              message: "暂无课程，请先选课",
+              type: "error"
+            });
+          } else {
+            this.$notify({
+              title: "查询失败",
+              message: error.response.data.message,
+              type: "error"
+            });
+          }
         } else {
-          console.log("密码错误");
+          this.$notify({
+            title: "查询失败",
+            message: "登陆失效，请重新登陆",
+            type: "error"
+          });
         }
       });
   },
   methods: {
-    filltable(){
-      for(var x in this.CourseData){
-        var str0=this.CourseData[x]['sksj']
-        var str1=str0.substring(0,1)
-        var str2=str0.substring(1)
-        var list=str2.split('-')
-        console.log(str0,str1,str2,list[0],list[1])
-        if(str1 == '一'){
-          str1='mon'
-        }else if(str1=='二'){
-          str1='tue'
-        }else if(str1=='三'){
-          str1='wed'
-        }else if(str1=='四'){
-          str1='thu'
-        }else{
-          str1='fri'
+    filltable() {
+      for (var x in this.CourseData) {
+        var str0 = this.CourseData[x]["sksj"];
+        var str1 = str0.substring(0, 1);
+        var str2 = str0.substring(1);
+        var list = str2.split("-");
+        console.log(str0, str1, str2, list[0], list[1]);
+        if (str1 == "一") {
+          str1 = "mon";
+        } else if (str1 == "二") {
+          str1 = "tue";
+        } else if (str1 == "三") {
+          str1 = "wed";
+        } else if (str1 == "四") {
+          str1 = "thu";
+        } else {
+          str1 = "fri";
         }
         // this.tableForm[list[0]-1][str1]=this.CourseData[x]['km']
-        for(var index=Number(list[0]);index<=Number(list[1]);index++){
-          this.tableForm[index-1][str1]=this.CourseData[x]['km']
+        for (var index = Number(list[0]); index <= Number(list[1]); index++) {
+          this.tableForm[index - 1][str1] = this.CourseData[x]["km"];
         }
       }
     },

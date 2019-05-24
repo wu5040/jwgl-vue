@@ -5,17 +5,17 @@
       <el-table :data="GradeData" v-loading="loading" style="margin: 0 auto; width: 100%; text-align:center;" fit :stripe="true" :border="false">
         <!-- <el-table-column prop="index" label="序号" width="100"></el-table-column> -->
         <el-table-column prop="kh" label="课程号"></el-table-column>
-        <el-table-column prop="km" label="课程名" ></el-table-column>
+        <el-table-column prop="km" label="课程名"></el-table-column>
         <!-- <el-table-column prop="xf" label="学分" ></el-table-column> -->
-        <el-table-column prop='gh' label='教师号' ></el-table-column>
+        <el-table-column prop='gh' label='教师号'></el-table-column>
         <el-table-column prop="name" label="教师名"></el-table-column>
-        <el-table-column prop="zpcj" label="成绩" ></el-table-column>
+        <el-table-column prop="zpcj" label="成绩"></el-table-column>
       </el-table>
     </div>
     <br/>
-    <!-- <el-button @click="drawBar()">展示</el-button>
+    <el-button @click="drawBar()">成绩分布表</el-button>
     <br/>
-    <div v-show="isShow" id="scoreBar" :style="{width: '630px', height: '300px'}"></div> -->
+    <div v-show="iss" id="scoreBar" :style="{width: '630px', height: '300px'}"></div>
   </div>
 </template>
 
@@ -24,8 +24,8 @@ export default {
   name: "transcript",
   data() {
     return {
-      isShow: false,
-      loading:false,
+      iss: false,
+      loading: false,
       GradeData: [
         {
           index: "1",
@@ -61,11 +61,10 @@ export default {
     };
   },
   mounted() {
-    
     //this.drawBar();
   },
   created: function() {
-    this.loading=true
+    this.loading = true;
     this.axios
       .get("http://localhost:8099/student/elective/grades", {
         headers: { token: localStorage.getItem("token") }
@@ -75,16 +74,16 @@ export default {
         if (resCode === 200) {
           console.log("200", res.data.object);
           this.GradeData = res.data.object;
-          this.loading=false
+          this.loading = false;
         }
       })
       .catch(error => {
         console.log(error.response);
         this.$notify({
-            title: "查询失败",
-            message: error.response.data.message,
-            type: "error"
-          });
+          title: "查询失败",
+          message: error.response.data.message,
+          type: "error"
+        });
         if (error.response.data.code === 40401) {
           console.log("用户名不存在");
         } else {
@@ -100,7 +99,6 @@ export default {
       // this.$message("这里需要在数据库查询数据！！！");
     },
     drawBar() {
-      this.isShow = true;
       // 基于准备好的dom，初始化echarts实例
       let myChart = this.$echarts.init(document.getElementById("scoreBar"));
       let km_data = new Array();
@@ -126,10 +124,31 @@ export default {
             name: "成绩",
             type: "bar",
             // data: [100, 94, 89]
-            data: zpcj_data
+            data: zpcj_data,
+            itemStyle: {
+              normal: {
+                label: {
+                  show: true, //开启显示
+                  position: "top", //在上方显示
+                  textStyle: {
+                    //数值样式
+                    color: "black",
+                    fontSize: 16
+                  }
+                }
+              }
+            }
           }
         ]
       });
+      console.log("before", this.iss);
+      if (this.iss == true) {
+        this.iss = false;
+      } else {
+        this.iss = true;
+      }
+      console.log("after", this.iss);
+      this.reload;
     }
   }
 };

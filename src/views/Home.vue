@@ -23,7 +23,7 @@
                     </el-menu>
                 </el-col>
                 <el-col :span="4" style="height:60px" justify="end"> 
-                    <el-button type="text" style="height:60px">Welcome,{{ this.name}}!</el-button>
+                    <el-button type="text" style="height:60px">Welcome,{{ this.name}}</el-button>
                 </el-col>
                 <el-col :span="2" style="height:60px" justify="end">
                     <el-button type="text" style="height:60px" @click="goBack()">安全退出</el-button>

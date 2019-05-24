@@ -129,11 +129,11 @@ export default {
       })
       .catch(error => {
         console.log(error.response);
-        this.$notify({
-          title: "查询失败",
-          message: "登陆失效，请重新登陆",
-          type: "error"
-        });
+        // this.$notify({
+        //   title: "查询失败",
+        //   message: "登陆失效，请重新登陆",
+        //   type: "error"
+        // });
       });
   },
   methods: {

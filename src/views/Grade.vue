@@ -28,7 +28,7 @@
       <br/>
       <el-button @click="drawBar()">成绩分布直方图</el-button>
       <br/>
-      <div  v-show="this.iss" id="scoreBar2" :style="{width: '630px', height: '300px'}"></div>
+      <div v-show="iss" id="scoreBar" :style="{width: '630px', height: '300px'}"></div>
       </br>
       <el-dialog title="修改成绩" :visible.sync="dialogForm">
         <el-form :model="cj">
@@ -55,7 +55,7 @@ export default {
   data() {
     return {
       loading: false,
-      iss: true,
+      iss: false,
       currentStudent: { xh: "", kh: "", xq: "" },
       dialogForm: false,
       cj: { pscj: "", kscj: "" },
@@ -135,7 +135,7 @@ export default {
   methods: {
     drawBar() {
       // 基于准备好的dom，初始化echarts实例
-      let myChart = this.$echarts.init(document.getElementById("scoreBar2"));
+      let myChart = this.$echarts.init(document.getElementById("scoreBar"));
       let Xlabel = ["100-90", "89-70", "69-60", "59-0"];
       let Ylabel = [0, 0, 0, 0];
       for (var x in this.CourseData) {
@@ -147,7 +147,7 @@ export default {
           Ylabel[1] = Ylabel[1] + 1;
         } else if (zpcj >= 60 && zpcj < 70) {
           Ylabel[2] = Ylabel[2] + 1;
-        } else if(zpcj>=0 && zpcj<60){
+        } else if (zpcj >= 0 && zpcj < 60) {
           Ylabel[3] = Ylabel[3] + 1;
         }
         console.log("Y", Ylabel);
@@ -169,18 +169,31 @@ export default {
             name: "成绩",
             type: "bar",
             // data: [100, 94, 89]
-            data: Ylabel
+            data: Ylabel,
+            itemStyle: {
+              normal: {
+                label: {
+                  show: true, //开启显示
+                  position: "top", //在上方显示
+                  textStyle: {
+                    //数值样式
+                    color: "black",
+                    fontSize: 16
+                  }
+                }
+              }
+            }
           }
         ]
       });
-      console.log('before',this.iss)
+      console.log("before", this.iss);
       if (this.iss == true) {
         this.iss = false;
       } else {
         this.iss = true;
       }
-      console.log('after',this.iss)
-      this.reload
+      console.log("after", this.iss);
+      this.reload;
     },
     SearchCourse() {
       this.loading = true;
