@@ -61,8 +61,8 @@ export default {
           let resCode = res.data.code;
           if (resCode === 200) {
             console.log(res.data.jsonObject);
-            console.log("name",res.data.jsonObject['name'])
-            localStorage.setItem("name", res.data.jsonObject['name']);
+            console.log("name", res.data.jsonObject["name"]);
+            localStorage.setItem("name", res.data.jsonObject["name"]);
             localStorage.setItem("token", res.data.jsonObject.token);
             if (res.data.jsonObject.role === "student") {
               console.log("student登录");
@@ -101,16 +101,31 @@ export default {
                 path: "/home"
               });
             }
+          } else if (res.data.code == 500) {
+            this.$notify({
+              title: "登陆失败",
+              message: "网络连接异常",
+              type: "error"
+            });
           }
         })
         .catch(error => {
-          console.log(error);
-          if(error.response.data){
-            this.$notify({
-            title: "登陆失败",
-            message: error.response.data.message,
-            type: "error"
-          });}
+          console.log(error.response.data);
+          if (error.response.data) {
+            if (error.response.data.status == 500) {
+              this.$notify({
+                title: "登陆失败",
+                message: "网络连接异常",
+                type: "error"
+              });
+            } else {
+              this.$notify({
+                title: "登陆失败",
+                message: error.response.data.message,
+                type: "error"
+              });
+            }
+          }
         });
     }
   }
