@@ -16,7 +16,7 @@
       </el-table-column>
       <el-table-column prop="km" label="课程名">
       </el-table-column>
-      <el-table-column prop="xf" label="学分" >
+      <el-table-column prop="xf" label="学分">
       </el-table-column>
       <el-table-column prop="xs" label="学时">
       </el-table-column>
@@ -264,9 +264,9 @@ export default {
       // formData.append("credit", this.form.credit);
 
       this.axios
-        .post("http://localhost:8099/admin/course", formData,{
-            headers: { token: localStorage.getItem("token") }}
-        )
+        .post("http://localhost:8099/admin/course", formData, {
+          headers: { token: localStorage.getItem("token") }
+        })
         .then(resp => {
           console.log(resp);
           if (resp.data.error === 1) {
@@ -276,11 +276,19 @@ export default {
               type: "error"
             });
           } else {
-            this.$notify({
-              title: "成功",
-              message: "新增课程信息成功",
-              type: "success"
-            });
+            if (resp.data.code == 400) {
+              this.$notify({
+                title: "失败",
+                message: resp.data.message,
+                type: "error"
+              });
+            } else {
+              this.$notify({
+                title: "成功",
+                message: "新增课程信息成功",
+                type: "success"
+              });
+            }
           }
         })
         .catch(err => {

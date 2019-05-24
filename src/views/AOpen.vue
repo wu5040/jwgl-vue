@@ -48,7 +48,7 @@
                         <el-input v-model="dialogueform.sksj" autocomplete="off"></el-input>
                     </el-form-item>
                     <el-form-item label="已选课人数" >
-                        <el-input v-model="dialogueform.Cur" autocomplete="off"></el-input>
+                        <el-input :disabled=true v-model="dialogueform.Cur" autocomplete="off"></el-input>
                     </el-form-item>
                     <el-form-item label="额定人数">
                         <el-input v-model="dialogueform.max" autocomplete="off"></el-input>
